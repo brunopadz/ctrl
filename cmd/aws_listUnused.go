@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -16,7 +17,12 @@ var listUnused = &cobra.Command{
 	Use:   "list-unused",
 	Short: "List unused AMIs",
 	Long:  `List not used AMIs for a given region and account.`,
-	Args:  cobra.MaximumNArgs(2),
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 2 {
+			return errors.New("You need to specify 2 arguments: [ACCOUNT_ID] [REGION]")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		// Creates a input filter to get AMIs
 		f := &ec2.DescribeImagesInput{

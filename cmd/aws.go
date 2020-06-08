@@ -12,8 +12,8 @@ var awsCmd = &cobra.Command{
 	Long: `amictl aws - Manages AWS AMIs
 
 With amictl aws it's possible to:
- - List all AMIs
- - List unused AMIs`,
+ - List all AMIs -> amictl aws list-all [ACCOUNT_ID] [REGION]
+ - List unused AMIs -> amictl aws list-unused [ACCOUNT_ID] [REGION]`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(cmd.Long)
 	},
