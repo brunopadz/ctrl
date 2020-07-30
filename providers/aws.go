@@ -64,3 +64,34 @@ func AwsListNotUsed(a *ec2.DescribeImagesOutput, s *ec2.EC2) ([]string, []string
 
 	return all, used
 }
+
+func AwsListUsed(a *ec2.DescribeImagesOutput, s *ec2.EC2) []string {
+
+	used := []string{}
+
+	for _, v := range a.Images {
+		u := v.ImageId
+
+		ec2f := &ec2.DescribeInstancesInput{
+			Filters: []*ec2.Filter{
+				{
+					Name:   aws.String("image-id"),
+					Values: []*string{aws.String(*u)},
+				},
+			},
+		}
+
+		r, err := s.DescribeInstances(ec2f)
+		for _, res := range r.Reservations {
+			for range res.Instances {
+				used = append(used, string(aws.StringValue(*&u)))
+			}
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	return used
+
+}

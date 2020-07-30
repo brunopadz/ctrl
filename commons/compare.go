@@ -11,3 +11,19 @@ func Compare(a, b []string) []string {
 	}
 	return a
 }
+
+func Deduplicate(a []string) []string {
+
+	l := []string{}
+	m := make(map[string]bool)
+
+	for _, e := range a {
+		if _, v := m[e]; !v {
+			m[e] = true
+			l = append(l, e)
+		}
+	}
+
+	return l
+
+}

@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/brunopadz/amictl/commons"
 	"github.com/brunopadz/amictl/providers"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
@@ -25,6 +26,11 @@ var listUnused = &cobra.Command{
 }
 
 func runUnused(cmd *cobra.Command, args []string) error {
+
+	red := color.New(color.FgRed)
+	yellow := color.New(color.FgYellow)
+	green := color.New(color.FgGreen)
+
 	// Creates a input filter to get AMIs
 	f := &ec2.DescribeImagesInput{
 		Owners: []*string{
@@ -48,7 +54,14 @@ func runUnused(cmd *cobra.Command, args []string) error {
 	r := strings.Join(n, "\n")
 
 	fmt.Println(r)
-	fmt.Println("Total of", len(n), "not used AMIs")
+
+	if len(n) == 0 {
+		green.Println("Yay! You're already saving some money. 🎉")
+	} else if len(n) >= 5 && len(n) <= 10 {
+		yellow.Println("There are a total of", len(n), "not used AMIs. You could be saving some money.")
+	} else {
+		red.Println("There are a total of", len(n), "not used AMIs. Go ahead and delete some to save some money.")
+	}
 
 	return nil
 }
