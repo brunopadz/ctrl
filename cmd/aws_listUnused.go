@@ -57,10 +57,10 @@ func runUnused(cmd *cobra.Command, args []string) error {
 
 	if len(n) == 0 {
 		green.Println("Yay! You're already saving some money. 🎉")
-	} else if len(n) >= 5 && len(n) <= 10 {
+	} else if len(n) >= 1 && len(n) <= 10 {
 		yellow.Println("There are a total of", len(n), "not used AMIs. You could be saving some money.")
 	} else {
-		red.Println("There are a total of", len(n), "not used AMIs. Go ahead and delete some to save some money.")
+		red.Println("There are a total of", len(n), "not used AMIs. Go ahead and delete them to save some money.")
 	}
 
 	return nil

@@ -18,7 +18,7 @@ More docs coming soon.
 
 ## How to use
 
-- Download the binay from [releases page](https://github.com/brunopadz/amictl/releases) or 
+- Download the binary from [releases page](https://github.com/brunopadz/amictl/releases) or 
 - Download using go get:
   
   `go get github.com/brunopadz/amictl`
@@ -37,6 +37,18 @@ ami-03fd5464hdd14b864
 Total of 7 AMIs
 ```
 
+**List used AMIs**
+
+```
+$ amictl aws list-used --account 123456789012 --region us-east-1
+ami-00123asb820d84d9a
+ami-01ee75aqwez39a298
+ami-02e6a65236aa8d0e7
+ami-0387a7987av1b328d
+Total of 4 used AMIs.
+```
+
+
 **List not used AMIs**
 
 ```
@@ -44,5 +56,5 @@ $ amictl aws list-all --account 123456789012 --region us-east-1
 ami-00123asb820d84d9a
 ami-01ee75aqwez39a298
 ami-02e6a65236aa8d0e7
-Total of 3 AMIs
+There are a total of 3 not used AMIs. You could be saving some money.
 ```
